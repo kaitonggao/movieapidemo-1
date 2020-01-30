@@ -67,7 +67,7 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-router.delete("/users/:id", async (req, res) => {
+router.delete("/users/:id", auth, async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
 
@@ -79,7 +79,7 @@ router.delete("/users/:id", async (req, res) => {
     res.status(500).send(error);
   }
 });
-router.patch("/users/:id", async (req, res) => {
+router.patch("/users/:id", auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email"];
   const isValidOperation = updates.every(update =>
